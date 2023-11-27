@@ -5,7 +5,7 @@ import {
   LoginLink,
   LogoutLink,
   RegisterLink,
-} from "@kinde-oss/kinde-auth-nextjs/dist/components";
+} from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -33,14 +33,14 @@ export default async function RootLayout({
           {(await isAuthenticated()) ? (
             <div className="flex gap-3 items-center">
               <Avatar className="w-12 h-12">
-                <AvatarImage src={user.picture} alt="@shadcn" />
+                <AvatarImage src={user?.picture || ""} alt="@shadcn" />
                 <AvatarFallback>
-                  {user.given_name[0]} {user.family_name[0]}
+                  {user?.given_name![0]} {user?.family_name![0]}
                 </AvatarFallback>
               </Avatar>
               <div>
                 <p className="font-medium -mb-1">
-                  {user.given_name} {user.family_name}
+                  {user?.given_name} {user?.family_name}
                 </p>
                 <LogoutLink className="font-medium text-sm text-slate-600">
                   Sign out
