@@ -9,6 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,37 +30,45 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className="flex justify-between items-center p-8 px-24">
-          <h1 className="font-bold text-2xl">AppName</h1>
-          {(await isAuthenticated()) ? (
-            <div className="flex gap-3 items-center">
-              <Avatar className="w-12 h-12">
-                <AvatarImage src={user?.picture || ""} alt="@shadcn" />
-                <AvatarFallback>
-                  {user?.given_name![0]} {user?.family_name![0]}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium -mb-1">
-                  {user?.given_name} {user?.family_name}
-                </p>
-                <LogoutLink className="font-medium text-sm text-slate-600">
-                  Sign out
-                </LogoutLink>
+        <nav className="py-8">
+          <div className="max-w-7xl w-full mx-auto flex justify-between items-center">
+            <div className="flex gap-4 items-center">
+              <h1 className="font-bold text-2xl">AppName</h1>
+              <Button asChild variant={"link"}>
+                <Link href="/players">Players</Link>
+              </Button>
+            </div>
+            {(await isAuthenticated()) ? (
+              <div className="flex gap-3 items-center">
+                <Avatar className="w-12 h-12">
+                  <AvatarImage src={user?.picture || ""} alt="@shadcn" />
+                  <AvatarFallback>
+                    {user?.given_name![0]} {user?.family_name![0]}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-medium -mb-1">
+                    {user?.given_name} {user?.family_name}
+                  </p>
+                  <LogoutLink className="font-medium text-sm text-slate-600">
+                    Sign out
+                  </LogoutLink>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="flex gap-2">
-              <LoginLink>
-                <Button variant={"secondary"}>Login</Button>
-              </LoginLink>
-              <RegisterLink>
-                <Button>Register</Button>
-              </RegisterLink>
-            </div>
-          )}
+            ) : (
+              <div className="flex gap-2">
+                <LoginLink>
+                  <Button variant={"secondary"}>Login</Button>
+                </LoginLink>
+                <RegisterLink>
+                  <Button>Register</Button>
+                </RegisterLink>
+              </div>
+            )}
+          </div>
         </nav>
         {children}
+        <Toaster />
       </body>
     </html>
   );

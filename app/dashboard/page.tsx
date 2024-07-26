@@ -22,7 +22,7 @@ export default async function Dashboard() {
   }
 
   return (
-    <main className="px-24">
+    <main className="max-w-7xl w-full mx-auto">
       <Card className="rounded-2xl bg-slate-950 shadow-2xl text-white text-center">
         <div className="mx-auto max-w-[550px] p-10">
           <p className="text-2xl mb-2">Welcome, {user?.given_name}</p>
