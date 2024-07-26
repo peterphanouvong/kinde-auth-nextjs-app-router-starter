@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/table";
 import { PlayerSearch } from "./player-search";
 import Link from "next/link";
+import { players } from "@/players";
 
 export default async function Players(props: {
   searchParams: {
     term: string;
   };
 }) {
-  const { players } = await fetch("http://localhost:3000/api/players").then(
-    (res) => res.json()
-  );
-
+  // const { players } = await fetch("http://localhost:3000/api/players").then(
+  //   (res) => res.json()
+  // );
   return (
     <div className="">
       <div className="bg-slate-950 py-24">
