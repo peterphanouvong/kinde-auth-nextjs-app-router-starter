@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const { isAuthenticated } = getKindeServerSession();
+  const isAuthed = await isAuthenticated();
+  if (!isAuthed) {
+    redirect("/api/auth/login");
+  }
   return (
     <main className="px-24">
       <Card className="rounded-2xl bg-slate-950 shadow-2xl text-white text-center h-[760px]">
